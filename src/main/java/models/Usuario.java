@@ -27,61 +27,56 @@ abstract public class Usuario {
     private String Direccion;
 
     @NotBlank(message = "Género no puede estar vacío")
-    @Pattern(regexp = "Masculino|Femenino|Otro", message = "El género debe ser 'Masculino', 'Femenino' u 'Otro'")
+    @Pattern(regexp = "Masculino|Femenino", message = "El género debe ser 'Masculino' o 'Femenino'")
     private String Genero;
 
-// Getters y setters
+    // Getters and setters without validation annotations
 
-    public @NotBlank(message = "Dirección no puede estar vacía") @Size(max = 255, message = "La dirección debe ser más corta") String getDireccion() {
+    public String getDireccion() {
         return Direccion;
     }
 
-    @NotBlank(message = "La contraseña no puede estar vacía")
-    @Size(min = 8, max = 20, message = "La contraseña debe tener entre 8 y 20 caracteres")
-    @Pattern(regexp = "^[^\\s]+$", message = "La contraseña no puede contener espacios en blanco")
-    private String contrasena;
-
-    public @NotBlank(message = "Email no puede estar vacío") @Email(message = "Formato de email inválido") String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public @NotBlank(message = "Género no puede estar vacío") @Pattern(regexp = "Masculino|Femenino|Otro", message = "El género debe ser 'Masculino', 'Femenino' u 'Otro'") String getGenero() {
+    public String getGenero() {
         return Genero;
     }
 
-    public @NotBlank(message = "ID no puede estar vacío") @Pattern(regexp = "S\\d{8}", message = "El ID debe comenzar con 'S' seguido de 8 dígitos") String getId() {
+    public String getId() {
         return id;
     }
 
-    public @NotBlank(message = "Nombre no puede estar vacío") @Size(max = 100, message = "El nombre no debe exceder los 100 caracteres") String getNombre() {
+    public String getNombre() {
         return Nombre;
     }
 
-    public @NotBlank(message = "Teléfono no puede estar vacío") @Pattern(regexp = "\\+?\\d{10,15}", message = "Número de teléfono inválido") String getTelefono() {
+    public String getTelefono() {
         return Telefono;
     }
 
-    public void setDireccion(@NotBlank(message = "Dirección no puede estar vacía") @Size(max = 255, message = "La dirección debe ser más corta") String direccion) {
+    public void setDireccion(String direccion) {
         Direccion = direccion;
     }
 
-    public void setEmail(@NotBlank(message = "Email no puede estar vacío") @Email(message = "Formato de email inválido") String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setGenero(@NotBlank(message = "Género no puede estar vacío") @Pattern(regexp = "Masculino|Femenino|Otro", message = "El género debe ser 'Masculino', 'Femenino' u 'Otro'") String genero) {
+    public void setGenero(String genero) {
         Genero = genero;
     }
 
-    public void setId(@NotBlank(message = "ID no puede estar vacío") @Pattern(regexp = "S\\d{8}", message = "El ID debe comenzar con 'S' seguido de 8 dígitos") String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public void setNombre(@NotBlank(message = "Nombre no puede estar vacío") @Size(max = 100, message = "El nombre no debe exceder los 100 caracteres") String nombre) {
+    public void setNombre(String nombre) {
         Nombre = nombre;
     }
 
-    public void setTelefono(@NotBlank(message = "Teléfono no puede estar vacío") @Pattern(regexp = "\\+?\\d{10,15}", message = "Número de teléfono inválido") String telefono) {
+    public void setTelefono(String telefono) {
         Telefono = telefono;
     }
 }
