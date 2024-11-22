@@ -19,7 +19,7 @@ abstract public class Usuario {
     private String email;
 
     @NotBlank(message = "Teléfono no puede estar vacío")
-    @Pattern(regexp = "\\+?\\d{10,15}", message = "Número de teléfono inválido")
+    @Size(min = 10, max = 10, message = "Número de teléfono inválido")
     private String Telefono;
 
     @NotBlank(message = "Dirección no puede estar vacía")
@@ -57,7 +57,7 @@ abstract public class Usuario {
     }
 
     public void setDireccion(String direccion) {
-        Direccion = direccion;
+        this.Direccion = direccion;
     }
 
     public void setEmail(String email) {
@@ -73,10 +73,19 @@ abstract public class Usuario {
     }
 
     public void setNombre(String nombre) {
-        Nombre = nombre;
+        this.Nombre = nombre;
     }
 
     public void setTelefono(String telefono) {
-        Telefono = telefono;
+        this.Telefono = telefono;
+    }
+
+    public Usuario() {
+        this.Nombre = "Sin nombre";
+        this.id = "S00000000";
+        this.email = "email@ejemplo.com";
+        this.Telefono = "0000000000";
+        this.Direccion = "Sin dirección";
+        this.Genero = "Masculino"; // Valor predeterminado
     }
 }

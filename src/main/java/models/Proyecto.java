@@ -11,4 +11,19 @@ public class Proyecto {
     @NotBlank(message = "Se debe anadir una descripcion")
     @Size( max = 1000, message = "El nombre del proyecto no debe exceder los 1000 caracteres")
     private String Descripcion;
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public String getDescripcion() {
+        return Descripcion;
+    }
+    public void setNombre(String nombre) {
+        this.Nombre = nombre;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.Descripcion = descripcion;
+    }
 }

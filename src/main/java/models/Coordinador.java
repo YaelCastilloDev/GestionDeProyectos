@@ -15,7 +15,7 @@ public class Coordinador extends Usuario {
     }
 
     public void setNoPersonal(String noPersonal) {
-        NoPersonal = noPersonal;
+        this.NoPersonal = noPersonal;
     }
 }
 
