@@ -1,22 +1,29 @@
 package models;
 
+import jakarta.validation.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator;
+
+import java.util.Set;
 
 abstract public class Usuario {
     @NotBlank(message = "Nombre no puede estar vacío")
     @Size(max = 100, message = "El nombre no debe exceder los 100 caracteres")
     private String Nombre;
 
-    @NotBlank(message = "ID no puede estar vacío")
-    @Pattern(regexp = "S\\d{8}", message = "El ID debe comenzar con 'S' seguido de 8 dígitos")
-    private String id;
+    String id;
 
     @NotBlank(message = "Email no puede estar vacío")
     @Email(message = "Formato de email inválido")
+    @Size(max = 100, message = "El nombre no debe exceder los 100 caracteres")
     private String email;
+
+    @NotBlank(message = "Contrasena no puede estar vacía")
+    @Size(min = 6, max = 15, message = "La contrasena debe tener de 6 a 15 caracteres")
+    private String contrasena;
 
     @NotBlank(message = "Teléfono no puede estar vacío")
     @Size(min = 10, max = 10, message = "Número de teléfono inválido")
@@ -72,6 +79,20 @@ abstract public class Usuario {
         this.id = id;
     }
 
+    public
+    @NotBlank(message = "Contrasena no puede estar vacía")
+    @Size(min = 6, max = 15, message = "La contrasena debe tener de 6 a 15 caracteres")
+    String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(
+            @NotBlank(message = "Contrasena no puede estar vacía")
+            @Size(min = 6, max = 15, message = "La contrasena debe tener de 6 a 15 caracteres")
+            String contrasena) {
+        this.contrasena = contrasena;
+    }
+
     public void setNombre(String nombre) {
         this.Nombre = nombre;
     }
@@ -82,10 +103,23 @@ abstract public class Usuario {
 
     public Usuario() {
         this.Nombre = "Sin nombre";
-        this.id = "S00000000";
+        this.id = "";
         this.email = "email@ejemplo.com";
+        this.contrasena = "1234567";
         this.Telefono = "0000000000";
         this.Direccion = "Sin dirección";
         this.Genero = "Masculino"; // Valor predeterminado
+    }
+
+    public void validate() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Usuario>> violations = validator.validate(this);
+
+        if (!violations.isEmpty()) {
+            // Obtiene el primer error y lanza la excepción
+            ConstraintViolation<Usuario> firstViolation = violations.iterator().next();
+            throw new ConstraintViolationException(firstViolation.getMessage(), violations);
+        }
     }
 }

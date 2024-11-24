@@ -1,4 +1,4 @@
-package Controller;
+package Controller.Proyecto;
 
 import models.Proyecto;
 
