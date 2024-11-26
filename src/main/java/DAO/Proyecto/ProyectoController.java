@@ -1,4 +1,4 @@
-package Controller.Proyecto;
+package DAO.Proyecto;
 
 import models.Proyecto;
 

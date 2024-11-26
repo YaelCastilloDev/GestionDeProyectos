@@ -26,7 +26,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Jakarta Validator -->
+        <!--Jakarta validator-->
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -44,14 +44,13 @@
             <version>6.1.2</version>
         </dependency>
 
-        <!-- JUnit 5 Platform -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- Optional: Enable JUnit 4 tests under JUnit 5 -->
+        <!-- No borrar -->
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>

@@ -1,13 +1,13 @@
-package Controller;
+package DAO;
 
-import Coordinador.EstudianteController;
+import DAO.Estudiante.Estudiante;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
 public class EstudianteControllerTest {
 
-    EstudianteController estudianteController = new EstudianteController();
+    Estudiante estudianteController = new Estudiante();
 
     @Test
     public void testRegistrarEstudiante() {

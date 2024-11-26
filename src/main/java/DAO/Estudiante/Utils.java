@@ -1,4 +1,4 @@
-package Coordinador;
+package DAO.Estudiante;
 import models.Estudiante;
 
 import jakarta.validation.ConstraintViolationException;

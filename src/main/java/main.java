@@ -1,4 +1,4 @@
-import Coordinador.EstudianteController;
+import DAO.Estudiante.Estudiante;
 import DBConeccion.SQLConeccion;
 
 import jakarta.validation.ConstraintViolationException;
@@ -12,7 +12,7 @@ public class main {
 
         }
 
-        EstudianteController estudianteController = new EstudianteController();
+        Estudiante estudianteController = new Estudiante();
 
         try {
             estudianteController.registrarEstudiante("  eee ", "", "e");
@@ -22,7 +22,7 @@ public class main {
         //System.out.println(estudianteController.AsignarRegistroEstudiante("", "", ""));
         //boolean d = estudianteController.registrarEstudiante(" ", " ", "S23014087");
 
-        
+
 /////////////////////////////////////
 /////////////////////////////////////
         ////////////////////////////SI VAN A HACER ALGUN CONTROLLER HAGANLO BOOLEANO PARA QUE SEAN MAS FACILES LOS TESTS
