@@ -1,4 +1,4 @@
-import DAO.Estudiante.Estudiante;
+import DAO.Estudiante.DAOimp;
 import DBConeccion.SQLConeccion;
 
 import jakarta.validation.ConstraintViolationException;
@@ -12,10 +12,10 @@ public class main {
 
         }
 
-        Estudiante estudianteController = new Estudiante();
+        DAOimp estudianteController = new DAOimp();
 
         try {
-            estudianteController.registrarEstudiante("  eee ", "", "e");
+            estudianteController.Registrar("  eee ", "", "e");
         } catch (ConstraintViolationException e) {
             System.err.println(e.getMessage());
         }
