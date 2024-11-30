@@ -79,6 +79,8 @@ abstract public class Usuario {
         this.id = id;
     }
 
+
+
     public
     @NotBlank(message = "Contrasena no puede estar vacía")
     @Size(min = 6, max = 15, message = "La contrasena debe tener de 6 a 15 caracteres")

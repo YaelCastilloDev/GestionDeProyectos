@@ -11,13 +11,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Security.PasswordHasher.encodePassword;
-
-public class DAOimp {
+public class DAOimp implements DAO {
 
     Utils utils = new Utils();
 
-    public boolean Registrar(String nombre, String descripcion) {
+    @Override
+    public boolean postRegistrar(Proyecto proyecto)  {
+        return false;
+    }
+
+    @Override
+    public List<Proyecto> getVisualizarProyectos(Proyecto proyecto) {
+        return List.of();
+    }
+
+    @Override
+    public boolean postRegistrar(String nombre, String descripcion) {
 
         models.Proyecto proyecto = new models.Proyecto();
 
@@ -69,8 +78,8 @@ public class DAOimp {
             }
         }
     }
-
-    public List<Proyecto> VisualizarProyectos() {
+    @Override
+    public List<Proyecto> getVisualizarProyectos() {
         String selectProyecto = "SELECT nombre, descripcion FROM proyecto";
         List<Proyecto> proyectos = new ArrayList<>();
 

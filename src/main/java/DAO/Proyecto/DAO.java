@@ -1,9 +1,14 @@
 package DAO.Proyecto;
 
-import models.Estudiante;
 import models.Proyecto;
 
+import java.util.List;
+
 public interface DAO {
-    boolean Registrar(Proyecto proyecto) throws Exception;
-    boolean Visualizar(Proyecto proyecto) throws Exception;
+    boolean postRegistrar(Proyecto proyecto) ;
+    List<Proyecto> getVisualizarProyectos(Proyecto proyecto) ;
+
+    boolean postRegistrar(String nombre, String descripcion);
+
+    List<Proyecto> getVisualizarProyectos();
 }

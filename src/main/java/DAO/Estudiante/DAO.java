@@ -1,15 +1,18 @@
 package DAO.Estudiante;
 import models.Estudiante;
+import models.Usuario;
+
 import java.util.List;
 
 
 public interface DAO {
     // Método para registrar un nuevo estudiante
-    boolean postRegistrar(Estudiante estudiante) throws Exception;
+    public boolean postRegistrar(String email, String contrasena, String matricula);
 
     // Método para actualizar los datos de un estudiante existente
-    boolean updateActualizar(Estudiante estudiante) throws Exception;
+    boolean updateActualizarDatosPersonales(Estudiante estudiante);
 
-    // Métodos específicos para estudiantes, si es necesario
-    Estudiante getBuscarPorMatricula(String matricula) throws Exception;
+    boolean updateActualizarDatosPersonales(String email, String telefono, String nombre, String direccion, String genero);
+
+    Usuario getUsuario(String email);
 }

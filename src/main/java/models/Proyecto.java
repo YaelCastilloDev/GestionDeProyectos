@@ -13,10 +13,20 @@ public class Proyecto {
     @Size(max = 1000, message = "El nombre del proyecto no debe exceder los 1000 caracteres")
     private String Descripcion;
 
+    private String proyectoId;
+
+    public Proyecto() {}
+
+    public String getProyectoId() {
+        return proyectoId;
+    }
+
+    public void setProyectoId(String proyectoId) {}
+
     public String getNombre() {
         return Nombre;
     }
-
+    
     public String getDescripcion() {
         return Descripcion;
     }

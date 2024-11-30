@@ -1,5 +1,7 @@
 package DAO.Estudiante;
 import DBConeccion.SQLConeccion;
+import models.Estudiante;
+import models.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,16 +10,17 @@ import java.sql.SQLException;
 
 import static Security.PasswordHasher.encodePassword;
 
-public class DAOimp {
+public class DAOimp implements DAO {
 
     Utils utils = new Utils();
 
     //La funcion es booleana para hacer mas facil los tests
-    public boolean Registrar(String email, String contrasena, String matricula) {
+    @Override
+    public boolean postRegistrar (String email, String contrasena, String matricula){
 
         models.Estudiante estudiante = new models.Estudiante();
 
-        utils.AsignarRegistroEstudiante(estudiante, email, contrasena, matricula);
+        utils.asignarRegistroEstudiante(estudiante, email, contrasena, matricula);
         String ContrasenaHasheada = encodePassword(estudiante.getContrasena());
         String insertUsuarioBase = "INSERT INTO usuario_base (email, ContrasenaHasheada) VALUES ( ?, ?)";
         String insertEstudiante = "INSERT INTO estudiante (id_usuario, matricula) VALUES (?, ?)";
@@ -76,12 +79,18 @@ public class DAOimp {
         }
     }
 
-    public boolean ActualizarDatosPersonales (String email, String telefono, String nombre, String direccion, String genero) {
+    @Override
+    public boolean updateActualizarDatosPersonales(Estudiante estudiante) {
+        return false;
+    }
+
+    @Override
+    public boolean updateActualizarDatosPersonales(String email, String telefono, String nombre, String direccion, String genero) {
 
         models.Estudiante estudiante = new models.Estudiante();
 
         // Asignar y validar datos utilizando AsignarActualizarEstudiante
-        utils.AsignarActualizarEstudiante(estudiante, telefono, nombre, direccion, genero);
+        utils.asignarActualizarEstudiante(estudiante, telefono, nombre, direccion, genero);
 
         String updateUsuarioBase = "UPDATE usuario_base SET nombre = ?, telefono = ?, direccion = ? WHERE email = ?";
         String updateEstudiante = "UPDATE estudiante SET genero = ? WHERE id_usuario = (SELECT id_usuario FROM usuario_base WHERE email = ?)";
@@ -140,5 +149,10 @@ public class DAOimp {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public Usuario getUsuario(String email) {
+        return null;
     }
 }

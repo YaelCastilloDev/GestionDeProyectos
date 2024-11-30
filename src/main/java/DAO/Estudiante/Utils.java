@@ -5,7 +5,7 @@ import jakarta.validation.ConstraintViolationException;
 
 public class Utils {
 
-    public void AsignarRegistroEstudiante(Estudiante estudiante, String email, String contrasena,
+    public void asignarRegistroEstudiante(Estudiante estudiante, String email, String contrasena,
                                            String matricula) {
         try {
             estudiante.setContrasena(contrasena);
@@ -17,7 +17,7 @@ public class Utils {
         }
     }
 
-    public void AsignarActualizarEstudiante(Estudiante estudiante, String telefono, String nombre, String direccion, String genero) {
+    public void asignarActualizarEstudiante(Estudiante estudiante, String telefono, String nombre, String direccion, String genero) {
         try {
             estudiante.setTelefono(telefono);
             estudiante.setNombre(nombre);
