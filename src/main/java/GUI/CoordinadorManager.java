@@ -1,87 +1,79 @@
 package GUI;
 
+import Servicio.EstudianteServicio;
+import models.Estudiante;
+
 import javax.swing.*;
+
+import DAO.Estudiante.Utils;
+import DBConeccion.SQLConeccion;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CoordinadorManager extends JFrame {
-    private JButton btnRegistrarProyecto;
-    private JButton btnVisualizarProyectos;
-    private JTextField txtNombreProyecto;
-    private JTextArea txtDescripcionProyecto;
+
+    private JTextField emailField;
+    private JPasswordField passwordField;
+    private JTextField matriculaField;
+    private JLabel messageLabel;
+
+    private EstudianteServicio estudianteServicio;
 
     public CoordinadorManager() {
-        setTitle("Gestión de Coordinadores");
+        setTitle("Gestión de Estudiantes");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
-
-        // Panel para registrar proyectos
-        JPanel panelRegistrar = new JPanel();
-        panelRegistrar.setLayout(new GridLayout(3, 2, 5, 5));
-        panelRegistrar.setBorder(BorderFactory.createTitledBorder("Registrar Proyecto"));
-
-        JLabel lblNombre = new JLabel("Nombre del Proyecto:");
-        txtNombreProyecto = new JTextField();
-        JLabel lblDescripcion = new JLabel("Descripción:");
-        txtDescripcionProyecto = new JTextArea(3, 20);
-
-        btnRegistrarProyecto = new JButton("Registrar");
-        btnRegistrarProyecto.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                postRegistrar();
-            }
-        });
-
-        panelRegistrar.add(lblNombre);
-        panelRegistrar.add(txtNombreProyecto);
-        panelRegistrar.add(lblDescripcion);
-        panelRegistrar.add(new JScrollPane(txtDescripcionProyecto));
-        panelRegistrar.add(btnRegistrarProyecto);
-
-        // Panel para visualizar proyectos
-        JPanel panelVisualizar = new JPanel();
-        panelVisualizar.setLayout(new BorderLayout());
-        panelVisualizar.setBorder(BorderFactory.createTitledBorder("Proyectos Disponibles"));
-
-        btnVisualizarProyectos = new JButton("Visualizar Proyectos");
-        btnVisualizarProyectos.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                getVisualizarProyectos();
-            }
-        });
-
-        panelVisualizar.add(btnVisualizarProyectos, BorderLayout.CENTER);
-
-        // Agregar paneles al JFrame
-        add(panelRegistrar, BorderLayout.NORTH);
-        add(panelVisualizar, BorderLayout.SOUTH);
+        setLocationRelativeTo(null); // Centrar la ventana
+        initComponents();
+        estudianteServicio = new EstudianteServicio();
     }
 
-    private void postRegistrar() {
-        String nombre = txtNombreProyecto.getText();
-        String descripcion = txtDescripcionProyecto.getText();
+    private void initComponents() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(5, 1, 10, 10));
 
-        if (nombre.isEmpty() || descripcion.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "Proyecto registrado: " + nombre);
-            txtNombreProyecto.setText("");
-            txtDescripcionProyecto.setText("");
+        emailField = new JTextField();
+        passwordField = new JPasswordField();
+        matriculaField = new JTextField();
+        messageLabel = new JLabel("", SwingConstants.CENTER);
+        messageLabel.setForeground(Color.RED);
+
+        JButton registrarButton = new JButton("Registrar Estudiante");
+        registrarButton.addActionListener(new RegisterAction());
+
+        panel.add(new JLabel("Correo:", SwingConstants.CENTER));
+        panel.add(emailField);
+        panel.add(new JLabel("Contraseña:", SwingConstants.CENTER));
+        panel.add(passwordField);
+        panel.add(new JLabel("Matrícula:", SwingConstants.CENTER));
+        panel.add(matriculaField);
+
+        add(panel, BorderLayout.CENTER);
+        add(registrarButton, BorderLayout.SOUTH);
+        add(messageLabel, BorderLayout.NORTH);
+    }
+
+    private class RegisterAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Estudiante estudiante = new Estudiante();
+            Utils utils = new Utils();
+            utils.asignarRegistroEstudiante(estudiante, emailField.getText(), new String(passwordField.getPassword()), matriculaField.getText());
+
+
+            // Llamar a la función para asignar registro y registrar al estudiante
+            try {
+                SQLConeccion.initializeConnection();
+                estudiante.validate();
+                estudianteServicio.registrarEstudiante(estudiante, estudiante.getEmail(), estudiante.getContrasena(), estudiante.getMatricula());
+                messageLabel.setText("Estudiante registrado exitosamente");
+                JOptionPane.showMessageDialog(CoordinadorManager.this, "Estudiante " + estudiante.getEmail() + " registrado.");
+            } catch (Exception ex) {
+                messageLabel.setText("Error al registrar el estudiante");
+                JOptionPane.showMessageDialog(CoordinadorManager.this, "Error: " + ex.getMessage());
+            }
         }
-    }
-
-    private void getVisualizarProyectos() {
-        JOptionPane.showMessageDialog(this, "Aquí se mostrarán los proyectos disponibles");
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            CoordinadorManager frame = new CoordinadorManager();
-            frame.setVisible(true);
-        });
     }
 }

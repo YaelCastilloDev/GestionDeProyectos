@@ -15,11 +15,8 @@ public class DAOimp implements DAO {
 
     //La funcion es booleana para hacer mas facil los tests
     @Override
-    public boolean postRegistrar (String email, String contrasena, String matricula){
+    public boolean postRegistrar (Estudiante estudiante, String email, String contrasena, String matricula){
 
-        models.Estudiante estudiante = new models.Estudiante();
-
-        utils.asignarRegistroEstudiante(estudiante, email, contrasena, matricula);
         String ContrasenaHasheada = encodePassword(estudiante.getContrasena());
         String insertUsuarioBase = "INSERT INTO usuario_base (email, ContrasenaHasheada) VALUES ( ?, ?)";
         String insertEstudiante = "INSERT INTO estudiante (id_usuario, matricula) VALUES (?, ?)";
@@ -79,17 +76,7 @@ public class DAOimp implements DAO {
     }
 
     @Override
-    public boolean updateActualizarDatosPersonales(Estudiante estudiante) {
-        return false;
-    }
-
-    @Override
-    public boolean updateActualizarDatosPersonales(String email, String telefono, String nombre, String direccion, String genero) {
-
-        models.Estudiante estudiante = new models.Estudiante();
-
-        // Asignar y validar datos utilizando AsignarActualizarEstudiante
-        utils.asignarActualizarEstudiante(estudiante, telefono, nombre, direccion, genero);
+    public boolean updateActualizarDatosPersonales(Estudiante estudiante, String email, String telefono, String nombre, String direccion, String genero) {
 
         String updateUsuarioBase = "UPDATE usuario_base SET nombre = ?, telefono = ?, direccion = ? WHERE email = ?";
         String updateEstudiante = "UPDATE estudiante SET genero = ? WHERE id_usuario = (SELECT id_usuario FROM usuario_base WHERE email = ?)";
@@ -154,4 +141,37 @@ public class DAOimp implements DAO {
     public Estudiante getEstudiante(String email) {
         return null;
     }
+
+    @Override
+public boolean asignarProyectoAEstudiante(String email, int idProyecto) {
+    String updateProyectoEstudiante = "UPDATE estudiante SET id_proyecto = ? WHERE id_usuario = (SELECT id_usuario FROM usuario_base WHERE email = ?)";
+
+    Connection conn = null;
+    PreparedStatement stmt = null;
+
+    try {
+        conn = SQLConeccion.getConnection();
+        stmt = conn.prepareStatement(updateProyectoEstudiante);
+        stmt.setInt(1, idProyecto);
+        stmt.setString(2, email);
+        int rowsAffected = stmt.executeUpdate();
+
+        if (rowsAffected == 0) {
+            throw new SQLException("No se encontró un estudiante con el email proporcionado.");
+        }
+
+        System.out.println("Proyecto asignado exitosamente.");
+        return true;
+    } catch (SQLException e) {
+        System.err.println("Error al asignar el proyecto: " + e.getMessage());
+        return false;
+    } finally {
+        try {
+            if (stmt != null) stmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
 }

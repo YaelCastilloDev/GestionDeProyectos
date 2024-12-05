@@ -59,13 +59,17 @@ public class LoginForm extends JFrame {
                 // Abrir la ventana correspondiente según el rol
                 switch (role) {
                     case "estudiante":
-                        EstudianteManager estudianteManager = new EstudianteManager();
+                        EstudianteManager estudianteManager = new EstudianteManager(email);
                         estudianteManager.setVisible(true);
+                        VisualizarProyecto visualizarProyecto = new VisualizarProyecto(email);
+                        visualizarProyecto.setVisible(true);
                         break;
                     case "coordinador":
                         new CoordinadorManager();
                         CoordinadorManager coordinadorManager = new CoordinadorManager();
                         coordinadorManager.setVisible(true);
+                        AsignarProyecto asignarProyecto = new AsignarProyecto();
+                        asignarProyecto.setVisible(true);
                         break;
                     default:
                         JOptionPane.showMessageDialog(LoginForm.this, "Rol desconocido");

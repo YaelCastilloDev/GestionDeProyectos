@@ -1,7 +1,6 @@
 package DAO.Proyecto;
 
 import jakarta.validation.ConstraintViolationException;
-import models.Estudiante;
 import models.Proyecto;
 
 public class Utils {
