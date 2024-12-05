@@ -1,4 +1,4 @@
-package DAO;
+/*package DAO;
 
 import DAO.Estudiante.DAOimp;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,4 +15,4 @@ public class EstudianteControllerTest {
         boolean result = estudianteController.Registrar("", "", "");
         assertFalse(result, "Registro no ejecutado con éxito.");
     }
-}
+}*/

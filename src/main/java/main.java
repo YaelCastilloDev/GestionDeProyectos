@@ -1,33 +1,25 @@
-import DAO.Estudiante.DAOimp;
+import javax.swing.*;
 import DBConeccion.SQLConeccion;
 
+import GUI.LoginForm;
+import Security.PasswordHasher;
 import jakarta.validation.ConstraintViolationException;
+
 public class main {
     public static void main(String[] args) {
-        try {
-            SQLConeccion.initializeConnection();
-
-        } catch (Exception e) {
-            System.err.println("Failed to connect to the database: " + e.getMessage());
-
-        }
-
-        DAOimp estudianteController = new DAOimp();
-
-        try {
-            estudianteController.Registrar("  eee ", "", "e");
-        } catch (ConstraintViolationException e) {
-            System.err.println(e.getMessage());
-        }
-        //System.out.println(estudianteController.AsignarRegistroEstudiante("", "", ""));
-        //boolean d = estudianteController.registrarEstudiante(" ", " ", "S23014087");
 
 
+ //    PasswordHasher passwordHasher = new PasswordHasher();
+    // String s =passwordHasher.encodePassword("1234567");
+  //   System.out.println(s);
+        SwingUtilities.invokeLater(() -> {
+            LoginForm loginForm = new LoginForm();
+            loginForm.setVisible(true);
+        });
 /////////////////////////////////////
 /////////////////////////////////////
         ////////////////////////////SI VAN A HACER ALGUN CONTROLLER HAGANLO BOOLEANO PARA QUE SEAN MAS FACILES LOS TESTS
         /////////////////////////////////////
         /////////////////////////////////////
-
     }
 }

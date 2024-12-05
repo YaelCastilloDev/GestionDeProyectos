@@ -1,6 +1,5 @@
 package DAO.Estudiante;
 import models.Estudiante;
-import models.Usuario;
 
 import java.util.List;
 
@@ -14,5 +13,5 @@ public interface DAO {
 
     boolean updateActualizarDatosPersonales(String email, String telefono, String nombre, String direccion, String genero);
 
-    Usuario getUsuario(String email);
+    Estudiante getEstudiante(String email);
 }

@@ -1,7 +1,6 @@
 package DAO.Estudiante;
 import DBConeccion.SQLConeccion;
 import models.Estudiante;
-import models.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -152,7 +151,7 @@ public class DAOimp implements DAO {
     }
 
     @Override
-    public Usuario getUsuario(String email) {
+    public Estudiante getEstudiante(String email) {
         return null;
     }
 }
