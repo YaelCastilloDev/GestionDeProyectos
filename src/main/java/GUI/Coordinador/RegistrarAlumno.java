@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Coordinador;
 
 import Servicio.EstudianteServicio;
 import models.Estudiante;
@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CoordinadorManager extends JFrame {
+public class RegistrarAlumno extends JFrame {
 
     private JTextField emailField;
     private JPasswordField passwordField;
@@ -21,7 +21,7 @@ public class CoordinadorManager extends JFrame {
 
     private EstudianteServicio estudianteServicio;
 
-    public CoordinadorManager() {
+    public RegistrarAlumno() {
         setTitle("Gestión de Estudiantes");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,10 +69,10 @@ public class CoordinadorManager extends JFrame {
                 estudiante.validate();
                 estudianteServicio.registrarEstudiante(estudiante, estudiante.getEmail(), estudiante.getContrasena(), estudiante.getMatricula());
                 messageLabel.setText("Estudiante registrado exitosamente");
-                JOptionPane.showMessageDialog(CoordinadorManager.this, "Estudiante " + estudiante.getEmail() + " registrado.");
+                JOptionPane.showMessageDialog(RegistrarAlumno.this, "Estudiante " + estudiante.getEmail() + " registrado.");
             } catch (Exception ex) {
                 messageLabel.setText("Error al registrar el estudiante");
-                JOptionPane.showMessageDialog(CoordinadorManager.this, "Error: " + ex.getMessage());
+                JOptionPane.showMessageDialog(RegistrarAlumno.this, "Error: " + ex.getMessage());
             }
         }
     }

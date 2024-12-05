@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Estudiante;
 
 import Servicio.ProyectoServicio;
 import models.Proyecto;

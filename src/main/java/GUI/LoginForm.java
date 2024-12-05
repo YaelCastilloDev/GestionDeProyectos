@@ -2,6 +2,10 @@ package GUI;
 
 import Security.PasswordHasher;
 import DBConeccion.SQLConeccion;
+import GUI.Coordinador.AsignarProyecto;
+import GUI.Coordinador.RegistrarAlumno;
+import GUI.Estudiante.ActualizarDatos;
+import GUI.Estudiante.VisualizarProyecto;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,14 +63,14 @@ public class LoginForm extends JFrame {
                 // Abrir la ventana correspondiente según el rol
                 switch (role) {
                     case "estudiante":
-                        EstudianteManager estudianteManager = new EstudianteManager(email);
+                        ActualizarDatos estudianteManager = new ActualizarDatos(email);
                         estudianteManager.setVisible(true);
                         VisualizarProyecto visualizarProyecto = new VisualizarProyecto(email);
                         visualizarProyecto.setVisible(true);
                         break;
                     case "coordinador":
-                        new CoordinadorManager();
-                        CoordinadorManager coordinadorManager = new CoordinadorManager();
+                        new RegistrarAlumno();
+                        RegistrarAlumno coordinadorManager = new RegistrarAlumno();
                         coordinadorManager.setVisible(true);
                         AsignarProyecto asignarProyecto = new AsignarProyecto();
                         asignarProyecto.setVisible(true);

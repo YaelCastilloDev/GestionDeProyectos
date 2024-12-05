@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Coordinador;
 
 import Servicio.EstudianteServicio;
 

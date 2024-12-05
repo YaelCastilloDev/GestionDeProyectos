@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Estudiante;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,7 @@ import DAO.Estudiante.Utils;
 import models.Estudiante;
 
 
-public class EstudianteManager extends JFrame {
+public class ActualizarDatos extends JFrame {
     private JTextField txtNombre;
     private JTextField txtTelefono;
     private JTextField txtDireccion;
@@ -20,7 +20,7 @@ public class EstudianteManager extends JFrame {
     private JButton btnActualizar;
     private JTextArea txtProyectos;
 
-    public EstudianteManager(String email) {
+    public ActualizarDatos(String email) {
         setTitle("Gestión de Estudiantes");
         setSize(500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,13 +74,13 @@ public class EstudianteManager extends JFrame {
                     );
 
                     if (actualizado) {
-                        JOptionPane.showMessageDialog(EstudianteManager.this, "Datos actualizados con éxito.");
+                        JOptionPane.showMessageDialog(ActualizarDatos.this, "Datos actualizados con éxito.");
                     } else {
-                        JOptionPane.showMessageDialog(EstudianteManager.this, "Error al actualizar los datos.");
+                        JOptionPane.showMessageDialog(ActualizarDatos.this, "Error al actualizar los datos.");
                     }
                 } catch (ConstraintViolationException validationException) {
                     // Si la validación falla, no se guarda nada y mostramos el error
-                    JOptionPane.showMessageDialog(EstudianteManager.this, 
+                    JOptionPane.showMessageDialog(ActualizarDatos.this, 
                                                   "Error en los datos ingresados: " + validationException.getMessage(), 
                                                   "Error de validación", JOptionPane.ERROR_MESSAGE);
                 }
