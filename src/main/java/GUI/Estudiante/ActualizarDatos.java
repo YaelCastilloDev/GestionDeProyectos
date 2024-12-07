@@ -4,13 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import DAO.Estudiante.DAO;
-import DAO.Estudiante.DAOimp;
-import DBConeccion.SQLConeccion;
+import Servicio.EstudianteServicio;
 import jakarta.validation.ConstraintViolationException;
-import DAO.Estudiante.Utils;
-import models.Estudiante;
-
 
 public class ActualizarDatos extends JFrame {
     private JTextField txtNombre;
@@ -50,27 +45,17 @@ public class ActualizarDatos extends JFrame {
         btnActualizar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Estudiante estudiante = new Estudiante();
-                Utils utils = new Utils();
+
+                EstudianteServicio estudianteServicio = new EstudianteServicio(); 
                 String generoSeleccionado = (String) cmbGenero.getSelectedItem();
-                
-                // Asignar los datos al estudiante
-                utils.asignarActualizarEstudiante(estudiante, txtTelefono.getText(), txtNombre.getText(), 
-                                                  txtDireccion.getText(), generoSeleccionado);
 
                 // Aquí validamos si el estudiante es válido antes de continuar
                 try {
-                    estudiante.validate();  
-                    SQLConeccion.tryConnection();
-                    DAO estudianteDAO = new DAOimp(); // Implementación de DAO
-
-                    boolean actualizado = estudianteDAO.updateActualizarDatosPersonales(
-                            estudiante,
-                            email, // Usar el correo pasado al constructor
-                            txtTelefono.getText(),
-                            txtNombre.getText(),
-                            txtDireccion.getText(),
-                            generoSeleccionado
+                    boolean actualizado = estudianteServicio.actualizarDatosPersonales(email,
+                    txtTelefono.getText(),
+                    txtNombre.getText(),
+                    txtDireccion.getText(),
+                    generoSeleccionado
                     );
 
                     if (actualizado) {
@@ -101,6 +86,4 @@ public class ActualizarDatos extends JFrame {
 
         // Cargar información del estudiante
     }
-
-
 }

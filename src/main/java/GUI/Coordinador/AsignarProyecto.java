@@ -1,11 +1,7 @@
 package GUI.Coordinador;
 
 import Servicio.EstudianteServicio;
-
 import javax.swing.*;
-
-import DBConeccion.SQLConeccion;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,15 +12,12 @@ public class AsignarProyecto extends JFrame {
     private JTextField proyectoIdField;
     private JLabel messageLabel;
 
-    private EstudianteServicio estudianteServicio;
-
     public AsignarProyecto() {
         setTitle("Asignar Proyecto a Estudiante");
         setSize(400, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centrar la ventana
         initComponents();
-        estudianteServicio = new EstudianteServicio();
     }
 
     private void initComponents() {
@@ -52,9 +45,10 @@ public class AsignarProyecto extends JFrame {
     private class AsignarAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            EstudianteServicio estudianteServicio = new EstudianteServicio();
             String email = emailField.getText();
             String proyectoIdStr = proyectoIdField.getText();
-            SQLConeccion.tryConnection();
+            
             try {
                 // Validar que el proyectoId sea un número entero
                 int proyectoId = Integer.parseInt(proyectoIdStr);

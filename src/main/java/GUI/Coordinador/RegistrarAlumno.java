@@ -1,12 +1,8 @@
 package GUI.Coordinador;
 
 import Servicio.EstudianteServicio;
-import models.Estudiante;
 
 import javax.swing.*;
-
-import DAO.Estudiante.Utils;
-import DBConeccion.SQLConeccion;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -58,18 +54,10 @@ public class RegistrarAlumno extends JFrame {
     private class RegisterAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Estudiante estudiante = new Estudiante();
-            Utils utils = new Utils();
-            utils.asignarRegistroEstudiante(estudiante, emailField.getText(), new String(passwordField.getPassword()), matriculaField.getText());
-
-
-            // Llamar a la función para asignar registro y registrar al estudiante
             try {
-                SQLConeccion.initializeConnection();
-                estudiante.validate();
-                estudianteServicio.registrarEstudiante(estudiante, estudiante.getEmail(), estudiante.getContrasena(), estudiante.getMatricula());
+                estudianteServicio.registrarEstudiante( emailField.getText(), new String(passwordField.getPassword()), matriculaField.getText());
                 messageLabel.setText("Estudiante registrado exitosamente");
-                JOptionPane.showMessageDialog(RegistrarAlumno.this, "Estudiante " + estudiante.getEmail() + " registrado.");
+                JOptionPane.showMessageDialog(RegistrarAlumno.this, "Estudiante " + emailField.getText() + " registrado.");
             } catch (Exception ex) {
                 messageLabel.setText("Error al registrar el estudiante");
                 JOptionPane.showMessageDialog(RegistrarAlumno.this, "Error: " + ex.getMessage());

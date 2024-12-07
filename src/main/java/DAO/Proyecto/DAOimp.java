@@ -55,5 +55,4 @@ public class DAOimp implements DAO {
     public boolean postRegistrar(String nombre, String descripcion) {
         throw new UnsupportedOperationException("Unimplemented method 'postRegistrar'");
     }
-    
 }

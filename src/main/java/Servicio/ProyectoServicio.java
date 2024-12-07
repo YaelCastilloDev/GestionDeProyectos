@@ -1,47 +1,26 @@
 package Servicio;
 
-import DAO.Proyecto.DAO;
 import DAO.Proyecto.DAOimp;
 import models.Proyecto;
+import DAO.Proyecto.Utils;
+import DBConeccion.SQLConeccion;
 
 import java.util.List;
 
 public class ProyectoServicio {
 
-    private DAO proyectoDAO;
-
-    // Constructor que permite inyección de dependencias
-    public ProyectoServicio(DAO proyectoDAO) {
-        this.proyectoDAO = proyectoDAO;
-    }
-
-    // Constructor por defecto
-    public ProyectoServicio() {
-        this.proyectoDAO = new DAOimp();
-    }
-
-    /**
-     * Registra un nuevo proyecto con un objeto Proyecto.
-     * @param proyecto Objeto Proyecto a registrar.
-     * @return true si se registra exitosamente, false en caso contrario.
-     */
-    public boolean registrarProyecto(Proyecto proyecto) {
-        if (proyecto.getNombre() == null || proyecto.getDescripcion() == null) {
-            throw new IllegalArgumentException("El nombre y la descripción del proyecto no pueden ser nulos.");
-        }
-        return proyectoDAO.postRegistrar(proyecto);
-    }
-
+    DAOimp proyectoDAO = new DAOimp();
+    Utils utils = new Utils();
+    Proyecto proyecto = new Proyecto();
     /**
      * Registra un nuevo proyecto con nombre y descripción.
      * @param nombre Nombre del proyecto.
      * @param descripcion Descripción del proyecto.
      * @return true si se registra exitosamente, false en caso contrario.
      */
-    public boolean registrarProyecto(String nombre, String descripcion) {
-        if (nombre == null || descripcion == null) {
-            throw new IllegalArgumentException("El nombre y la descripción no pueden ser nulos.");
-        }
+    public boolean registrarProyecto(Proyecto proyecto, String nombre, String descripcion) {
+        SQLConeccion.tryConnection();
+        utils.AsignarRegistro(proyecto, nombre, descripcion);
         return proyectoDAO.postRegistrar(nombre, descripcion);
     }
 
@@ -50,6 +29,7 @@ public class ProyectoServicio {
      * @return Lista de proyectos.
      */
     public List<Proyecto> obtenerProyectos() {
+        SQLConeccion.tryConnection();
         return proyectoDAO.getVisualizarProyectos(null);
     }
 
@@ -58,10 +38,14 @@ public class ProyectoServicio {
      * @param email Email del estudiante.
      * @return Proyecto asociado al estudiante, o null si no existe.
      */
-    public Proyecto obtenerProyectoEstudiante(String email) {
-        if (email == null || email.isEmpty()) {
-            throw new IllegalArgumentException("El email no puede ser nulo o vacío.");
+    public List<String> obtenerProyectoEstudiante(String email) {
+        SQLConeccion.tryConnection();
+        Proyecto proyecto = proyectoDAO.getVisualizarProyectoEstudiante(email);
+    
+        if (proyecto != null) {
+            return List.of(proyecto.getNombre(), proyecto.getDescripcion());
+        } else {
+            return List.of("Sin proyecto asignado", "Este estudiante no tiene un proyecto asociado.");
         }
-        return proyectoDAO.getVisualizarProyectoEstudiante(email);
     }
 }

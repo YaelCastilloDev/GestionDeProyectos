@@ -1,12 +1,8 @@
 package GUI.Estudiante;
 
 import Servicio.ProyectoServicio;
-import models.Proyecto;
-
+import java.util.List;
 import javax.swing.*;
-
-import DBConeccion.SQLConeccion;
-
 import java.awt.*;
 
 public class VisualizarProyecto extends JFrame {
@@ -36,13 +32,12 @@ public class VisualizarProyecto extends JFrame {
         txtDescripcion.setEditable(false); // Solo lectura
         txtDescripcion.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        Proyecto proyecto = new Proyecto();
-        SQLConeccion.tryConnection();
-        // Recuperar el proyecto desde el servicio
-        proyecto = obtenerProyecto(email);
-        
-         if (proyecto != null) {
-            txtDescripcion.setText("Nombre del Proyecto: " + proyecto.getNombre() + "\n\nDescripción:\n" + proyecto.getDescripcion());
+        List<String> proyectoData = obtenerProyecto(email);
+     
+        if (proyectoData != null && !proyectoData.isEmpty()) {
+            String titulo = proyectoData.get(0);
+            String descripcion = proyectoData.get(1);
+            txtDescripcion.setText("Nombre del Proyecto: " + titulo + "\n\nDescripción:\n" + descripcion);
         } else {
             txtDescripcion.setText("No tienes un proyecto asignado.");
         }
@@ -59,7 +54,7 @@ public class VisualizarProyecto extends JFrame {
     }
 
     // Método para obtener el proyecto del estudiante desde el servicio
-    private Proyecto obtenerProyecto(String email) {
+    private List<String> obtenerProyecto(String email) {
         try {
             return proyectoServicio.obtenerProyectoEstudiante(email);
         } catch (Exception e) {
