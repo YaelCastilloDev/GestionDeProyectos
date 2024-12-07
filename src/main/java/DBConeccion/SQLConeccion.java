@@ -12,7 +12,6 @@ public class SQLConeccion {
         if (connection == null || connection.isClosed()) {
             String user = "root";
             String password = "123456";
-            //String url = protocol + "://" + host + ":" + port + "/" + database;
             String url = "jdbc:mysql://localhost:3306/GestionDeProyectos";
 
             connection = DriverManager.getConnection(url, user, password);

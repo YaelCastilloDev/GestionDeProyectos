@@ -10,7 +10,6 @@ public class VisualizarProyecto extends JFrame {
     private ProyectoServicio proyectoServicio;
 
     public VisualizarProyecto(String email) {
-        // Inicializa la instancia del servicio
         proyectoServicio = new ProyectoServicio();
 
         setTitle("Visualizar Proyecto");
@@ -42,18 +41,16 @@ public class VisualizarProyecto extends JFrame {
             txtDescripcion.setText("No tienes un proyecto asignado.");
         }
 
-        // Scroll para el texto
         JScrollPane scrollPane = new JScrollPane(txtDescripcion);
 
-        // Agregar componentes al panel
+        // Agrega componentes al panel
         panel.add(lblTitulo, BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        // Agregar panel a la ventana
+        // Agrega panel a la ventana
         add(panel);
     }
 
-    // Método para obtener el proyecto del estudiante desde el servicio
     private List<String> obtenerProyecto(String email) {
         try {
             return proyectoServicio.obtenerProyectoEstudiante(email);
