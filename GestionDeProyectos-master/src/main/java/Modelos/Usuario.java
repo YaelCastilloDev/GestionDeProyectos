@@ -1,4 +1,4 @@
-package models;
+package Modelos;
 
 import jakarta.validation.*;
 import jakarta.validation.constraints.Email;

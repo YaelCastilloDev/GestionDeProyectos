@@ -1,9 +1,9 @@
 package Servicio;
 
 import DAO.Proyecto.DAOimp;
-import models.Proyecto;
-import DAO.Proyecto.Utils;
+import DAO.Proyecto.Utiles;
 import DBConeccion.SQLConeccion;
+import Modelos.Proyecto;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class ProyectoServicio {
 
     DAOimp proyectoDAO = new DAOimp();
 
-    Utils utils = new Utils();
+    Utiles utils = new Utiles();
 
     /**
      * Registra un nuevo proyecto en el sistema.
@@ -26,7 +26,7 @@ public class ProyectoServicio {
      * @return true si el proyecto se registró exitosamente, false si hubo un error.
      */
     public boolean registrarProyecto(String nombre, String descripcion) {
-        SQLConeccion.tryConnection();
+        SQLConeccion.tryConneccion();
         utils.AsignarRegistro(nombre, descripcion);
         return proyectoDAO.postRegistrar(nombre, descripcion);
     }
@@ -37,7 +37,7 @@ public class ProyectoServicio {
      * @return Lista de objetos Proyecto que representan los proyectos registrados.
      */
     public List<String> obtenerProyectos() {
-        SQLConeccion.tryConnection();
+        SQLConeccion.tryConneccion();
 
         return List.of("Sin proyecto asignado", "Este estudiante no tiene un proyecto asociado.");
     }
@@ -50,7 +50,7 @@ public class ProyectoServicio {
      *         Si el estudiante no tiene proyecto asignado, devuelve una lista con mensajes informativos.
      */
     public List<String> obtenerProyectoEstudiante(String email) {
-        SQLConeccion.tryConnection();
+        SQLConeccion.tryConneccion();
 
         Proyecto proyecto = proyectoDAO.getVisualizarProyectoEstudiante(email);
 

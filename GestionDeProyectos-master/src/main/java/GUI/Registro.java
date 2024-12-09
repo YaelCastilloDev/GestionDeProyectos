@@ -1,11 +1,11 @@
 package GUI;
 
-import Security.PasswordHasher;
 import DBConeccion.SQLConeccion;
 import GUI.Coordinador.AsignarProyecto;
 import GUI.Coordinador.RegistrarAlumno;
 import GUI.Estudiante.ActualizarDatos;
 import GUI.Estudiante.VisualizarProyecto;
+import Seguridad.PasswordHasher;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +19,7 @@ import java.sql.*;
  * Este formulario permite a los usuarios ingresar su correo electrónico y contraseña,
  * autenticar sus credenciales y acceder a la aplicación según su rol (estudiante o coordinador).
  */
-public class LoginForm extends JFrame {
+public class Registro extends JFrame {
     private JTextField emailField;
     private JPasswordField passwordField;
     private JLabel messageLabel;
@@ -29,7 +29,7 @@ public class LoginForm extends JFrame {
      *
      * Configura la ventana con los componentes necesarios para el inicio de sesión (campos de correo y contraseña).
      */
-    public LoginForm() {
+    public Registro() {
         setTitle("Inicio de Sesión");
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,7 +79,7 @@ public class LoginForm extends JFrame {
 
             if (role != null) {
                 messageLabel.setText("Inicio de sesión exitoso");
-                JOptionPane.showMessageDialog(LoginForm.this, "Bienvenido " + email);
+                JOptionPane.showMessageDialog(Registro.this, "Bienvenido " + email);
 
                 // Abrir la ventana correspondiente según el rol
                 switch (role) {
@@ -97,7 +97,7 @@ public class LoginForm extends JFrame {
                         asignarProyecto.setVisible(true);
                         break;
                     default:
-                        JOptionPane.showMessageDialog(LoginForm.this, "Rol desconocido");
+                        JOptionPane.showMessageDialog(Registro.this, "Rol desconocido");
                 }
 
                 dispose(); // Cierra el formulario de inicio de sesión
@@ -117,13 +117,13 @@ public class LoginForm extends JFrame {
          */
         private String authenticate(String email, String password) {
 
-            SQLConeccion.tryConnection();
+            SQLConeccion.tryConneccion();
 
             String queryUsuario = "SELECT id_usuario, contrasena FROM usuario_base WHERE email = ?";
             String queryEstudiante = "SELECT id_usuario FROM estudiante WHERE id_usuario = ?";
             String queryCoordinador = "SELECT id_usuario FROM coordinador WHERE id_usuario = ?";
 
-            try (Connection conn = SQLConeccion.getConnection();
+            try (Connection conn = SQLConeccion.obtenerConeccion();
                  PreparedStatement stmtUsuario = conn.prepareStatement(queryUsuario);
                  PreparedStatement stmtEstudiante = conn.prepareStatement(queryEstudiante);
                  PreparedStatement stmtCoordinador = conn.prepareStatement(queryCoordinador)) {
@@ -162,7 +162,7 @@ public class LoginForm extends JFrame {
                     return null; // Usuario no encontrado
                 }
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(LoginForm.this, "Error al verificar el usuario: " + ex.getMessage());
+                JOptionPane.showMessageDialog(Registro.this, "Error al verificar el usuario: " + ex.getMessage());
                 return null;
             }
         }

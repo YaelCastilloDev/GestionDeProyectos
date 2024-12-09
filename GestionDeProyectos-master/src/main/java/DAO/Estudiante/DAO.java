@@ -1,6 +1,6 @@
 package DAO.Estudiante;
 
-import models.Estudiante;
+import Modelos.Estudiante;
 
 /**
  * Interfaz que define los métodos para interactuar con la base de datos de estudiantes.

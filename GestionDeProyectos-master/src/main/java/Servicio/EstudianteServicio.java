@@ -1,7 +1,7 @@
 package Servicio;
 
 import DAO.Estudiante.DAOimp;
-import DAO.Estudiante.Utils;
+import DAO.Estudiante.Utiles;
 import DBConeccion.SQLConeccion;
 
 /**
@@ -15,7 +15,7 @@ public class EstudianteServicio {
     DAOimp estudianteDAO = new DAOimp();
 
     // Instancia de la clase Utils para manejar tareas auxiliares
-    Utils utils = new Utils();
+    Utiles utils = new Utiles();
 
     // Instancia del modelo Estudiante
     /**
@@ -31,7 +31,7 @@ public class EstudianteServicio {
         utils.asignarRegistroEstudiante( email, contrasena, matricula);
 
         // Intentar establecer la conexión con la base de datos
-        SQLConeccion.tryConnection();
+        SQLConeccion.tryConneccion();
 
         // Registrar el estudiante a través de la clase DAOimp
         return estudianteDAO.postRegistrar(email, contrasena, matricula);
@@ -51,7 +51,7 @@ public class EstudianteServicio {
         // Asignar los nuevos valores al objeto Estudiante
         utils.asignarActualizarEstudiante( telefono, nombre, direccion, genero);
         // Intentar establecer la conexión con la base de datos
-        SQLConeccion.tryConnection();
+        SQLConeccion.tryConneccion();
         // Actualizar los datos personales del estudiante a través de la clase DAOimp
         return estudianteDAO.updateActualizarDatosPersonales( email, telefono, nombre, direccion, genero);
     }
@@ -66,7 +66,7 @@ public class EstudianteServicio {
      */
     public boolean asignarProyectoAEstudiante(String email, int idProyecto) {
         // Intentar establecer la conexión con la base de datos
-        SQLConeccion.tryConnection();
+        SQLConeccion.tryConneccion();
 
         // Asignar el proyecto al estudiante a través de la clase DAOimp
         return estudianteDAO.asignarProyectoAEstudiante(email, idProyecto);

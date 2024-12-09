@@ -2,6 +2,8 @@ package Security;
 
 import org.junit.jupiter.api.Test;
 
+import Seguridad.PasswordHasher;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

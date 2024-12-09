@@ -1,7 +1,8 @@
 package DAO.Proyecto;
 
 import DBConeccion.SQLConeccion;
-import models.Proyecto;
+import Modelos.Proyecto;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -56,7 +57,7 @@ public class DAOimp implements DAO {
         
         Proyecto proyecto = null;
     
-        try (Connection conn = SQLConeccion.getConnection();
+        try (Connection conn = SQLConeccion.obtenerConeccion();
              PreparedStatement stmt = conn.prepareStatement(selectProyecto)) {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();

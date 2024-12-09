@@ -1,13 +1,14 @@
 package DAO.Estudiante;
 
 import DBConeccion.SQLConeccion;
-import models.Estudiante;
+import Modelos.Estudiante;
+
+import static Seguridad.PasswordHasher.encodePassword;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import static Security.PasswordHasher.encodePassword;
 
 /**
  * Implementación de la interfaz {@link DAO}. Esta clase proporciona los métodos necesarios
@@ -36,7 +37,7 @@ public class DAOimp implements DAO {
         PreparedStatement stmtEstudiante = null;
 
         try {
-            conn = SQLConeccion.getConnection();
+            conn = SQLConeccion.obtenerConeccion();
             conn.setAutoCommit(false); 
 
             // Inserta datos en la tabla usuario_base.
@@ -105,7 +106,7 @@ public class DAOimp implements DAO {
         PreparedStatement stmtEstudiante = null;
 
         try {
-            conn = SQLConeccion.getConnection();
+            conn = SQLConeccion.obtenerConeccion();
             conn.setAutoCommit(false); // Desactiva auto-commit para manejo seguro de transacciones.
 
             // Actualizar datos en usuario_base.
@@ -183,7 +184,7 @@ public class DAOimp implements DAO {
         PreparedStatement stmt = null;
 
         try {
-            conn = SQLConeccion.getConnection();
+            conn = SQLConeccion.obtenerConeccion();
             stmt = conn.prepareStatement(updateProyectoEstudiante);
             stmt.setInt(1, idProyecto);
             stmt.setString(2, email);

@@ -1,6 +1,5 @@
 package DAO.Estudiante;
-import models.Estudiante;
-
+import Modelos.Estudiante;
 import jakarta.validation.ConstraintViolationException;
 
 /**
@@ -12,7 +11,7 @@ import jakarta.validation.ConstraintViolationException;
  * una {@link jakarta.validation.ConstraintViolationException}.
  */
 
-public class Utils {
+public class Utiles {
     Estudiante estudiante = new Estudiante();
     /**
      * Asigna valores a las propiedades necesarias para registrar un estudiante.

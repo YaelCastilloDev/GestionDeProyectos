@@ -21,7 +21,7 @@ public class SQLConeccion {
      *
      * @throws SQLException Sí ocurre un error al establecer la conexión con la base de datos.
      */
-    public static void initializeConnection() throws SQLException {
+    public static void inicializarConnecion() throws SQLException {
         if (connection == null || connection.isClosed()) {
             String user = "root";
             String password = "123456";
@@ -40,7 +40,7 @@ public class SQLConeccion {
      * @return La conexión activa a la base de datos.
      * @throws SQLException Si la conexión no está inicializada o si se encuentra cerrada.
      */
-    public static Connection getConnection() throws SQLException {
+    public static Connection obtenerConeccion() throws SQLException {
         if (connection == null || connection.isClosed()) {
             throw new SQLException("Connection is not initialized. Call initializeConnection() first.");
         }
@@ -52,7 +52,7 @@ public class SQLConeccion {
      *
      * Este método garantiza que los recursos asociados a la conexión sean liberados.
      */
-    public static void closeConnection() {
+    public static void CerrarConneciones() {
         if (connection != null) {
             try {
                 connection.close();
@@ -68,9 +68,9 @@ public class SQLConeccion {
      *
      * Este método intenta establecer una conexión con la base de datos y muestra un mensaje en caso de fallo.
      */
-    public static void tryConnection() {
+    public static void tryConneccion() {
         try {
-            SQLConeccion.initializeConnection();
+            SQLConeccion.inicializarConnecion();
         } catch (Exception e) {
             System.err.println("Failed to connect to the database: " + e.getMessage());
             JOptionPane.showMessageDialog(null,

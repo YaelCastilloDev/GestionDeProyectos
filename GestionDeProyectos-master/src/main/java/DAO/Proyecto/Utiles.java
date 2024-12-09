@@ -1,13 +1,13 @@
 package DAO.Proyecto;
 
+import Modelos.Proyecto;
 import jakarta.validation.ConstraintViolationException;
-import models.Proyecto;
 
 /**
  * Clase de utilidad que proporciona métodos para asignar valores a las propiedades
  * de un objeto {@link Proyecto} y validar estos datos utilizando restricciones de validación.
  */
-public class Utils {
+public class Utiles {
     Proyecto proyecto = new Proyecto();
     /**
      * Asigna valores al nombre y descripción de un proyecto y realiza la validación de las propiedades del objeto.

@@ -1,7 +1,8 @@
 package DAO.Proyecto;
 
-import models.Proyecto;
 import java.util.List;
+
+import Modelos.Proyecto;
 
 /**
  * Interfaz para manejar operaciones relacionadas con proyectos en la base de datos.
